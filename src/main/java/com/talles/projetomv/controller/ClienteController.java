@@ -19,11 +19,6 @@ public class ClienteController {
     public List<Cliente> listar() {
         return clienteRepository.findAll();
     }
-    
-    @GetMapping("/relatorio-geral")
-    public List<Cliente> relatorioGeral() {
-        return clienteRepository.findAll();
-    }
 
     @PostMapping
     public Cliente criar(@RequestBody Cliente cliente) {
