@@ -3,6 +3,9 @@ package com.talles.projetomv.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Data
 @Entity
@@ -31,4 +34,12 @@ public class Cliente {
 
     @Column(name = "DATA_CADASTRO")
     private LocalDate dataCadastro = LocalDate.now();
+    
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("cliente")
+    private List<Conta> contas;
+    
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("cliente")
+    private List<Endereco> enderecos;
 }

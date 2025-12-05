@@ -1,5 +1,9 @@
 package com.talles.projetomv.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -27,5 +31,11 @@ public class Conta {
 
     @ManyToOne
     @JoinColumn(name = "ID_CLIENTE")
+    @JsonIgnoreProperties("contas")
     private Cliente cliente;
+    
+    @OneToMany(mappedBy = "conta", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("conta")
+    private List<Movimentacao> movimentacoes;
+
 }
