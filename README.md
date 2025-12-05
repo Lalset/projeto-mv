@@ -32,7 +32,6 @@ O projeto segue o padrão **MVC (Model-View-Controller)**, com separação em ca
 
 ---
 
-
 ## Função PL/SQL Utilizada
 
 O sistema utiliza uma função PL/SQL para calcular o valor devido à XPTO conforme a quantidade de movimentações de cada cliente.  
@@ -70,7 +69,7 @@ Primeiras 10 movimentações → R$ 1,00 cada
 5 movimentações seguintes → R$ 0,75 cada
 
 Total: (10 × 1,00) + (5 × 0,75) = R$ 13,75
-O Endpoint responsável pelo cálcula é GET /movimentacoes/receita/{idConta}
+O Endpoint responsável pelo cálculo é GET /movimentacoes/receita/{idConta}
 
 # Endpoints da API
 
@@ -106,3 +105,57 @@ O Endpoint responsável pelo cálcula é GET /movimentacoes/receita/{idConta}
 | POST   | `/enderecos/cliente/{idCliente}` | Cadastra um novo endereço vinculado a um cliente  |
 | PUT    | `/enderecos/{id}`                | Atualiza um endereço existente                    |
 | DELETE | `/enderecos/{id}`                | Exclui um endereço                                |
+
+### Relatório Geral da XPTO
+Endpoint responsável por retornar os dados completos dos clientes com suas contas, movimentações e endereços
+
+**Requisição**
+GET/clientes/relatorio-geral
+
+
+**Exemplo de Resposta em formato JSON**
+```json
+[
+  {
+    "id": 2,
+    "nome": "Empresa XPTO",
+    "tipo": "PJ",
+    "telefone": "81999999995",
+    "cnpj": "12345678000199",
+    "cpf": null,
+    "dataCadastro": "2025-12-04",
+    "contas": [
+      {
+        "id": 2,
+        "banco": "Nubank",
+        "agencia": "0001",
+        "numeroConta": "12345-6",
+        "ativa": "S",
+        "movimentacoes": [
+          {
+            "id": 1,
+            "tipo": "E",
+            "valor": 1500.0,
+            "dataMovimentacao": "2025-12-04"
+          },
+          {
+            "id": 2,
+            "tipo": "S",
+            "valor": 250.0,
+            "dataMovimentacao": "2025-12-04"
+          }
+        ]
+      }
+    ],
+    "enderecos": [
+      {
+        "id": 1,
+        "rua": "Av. Getúlio Vargas",
+        "numero": "123",
+        "cidade": "Olinda",
+        "estado": "PE",
+        "cep": "53000-000"
+      }
+    ]
+  }
+]
